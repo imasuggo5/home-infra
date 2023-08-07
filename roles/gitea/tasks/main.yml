@@ -1,0 +1,55 @@
+---
+- name: Add chart repo for Gitea
+  kubernetes.core.helm_repository:
+    name: gitea-charts
+    url: https://dl.gitea.com/charts/
+
+- name: Install Gitea
+  kubernetes.core.helm:
+    name: gitea
+    chart_ref: gitea-charts/gitea
+    create_namespace: yes
+    namespace: gitea
+    update_repo_cache: yes
+    values:
+      strategy:
+        type: Recreate
+      redis-cluster:
+        enabled: false
+      postgresql:
+        enabled: true
+      postgresql-ha:
+        enabled: false
+      persistence:
+        enabled: true
+      gitea:
+        admin:
+          username: gitea_admin
+          password: '{{ lookup("community.general.passwordstore", "home/gitea create=true") }}'
+        config:
+          service:
+            DISABLE_REGISTRATION: true
+          database:
+            DB_TYPE: postgresql
+          session:
+            PROVIDER: memory
+          cache:
+            ADAPTER: memory
+          queue:
+            TYPE: level
+          actions:
+            ENABLED: true
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: lets-encrypt
+          nginx.ingress.kubernetes.io/proxy-body-size: "5g"
+        hosts:
+          - host: "git.{{ domain }}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: git.{{ domain }}-tls
+            hosts:
+              - "git.{{ domain }}"

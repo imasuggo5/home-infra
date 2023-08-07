@@ -1,0 +1,31 @@
+---
+- name: Add chart repo for Airflow
+  kubernetes.core.helm_repository:
+    name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+- name: Install Airflow
+  kubernetes.core.helm:
+    name: airflow
+    chart_ref: bitnami/airflow
+    create_namespace: yes
+    namespace: airflow
+    update_repo_cache: yes
+    values:
+      auth:
+        username: admin
+        password: '{{ lookup("community.general.passwordstore", "home/airflow create=true") }}'
+      ingress:
+        enabled: true
+        hostname: "airflow.{{ domain }}"
+        annotations:
+          cert-manager.io/cluster-issuer: lets-encrypt
+        tls: true
+      postgresql:
+        primary:
+          volumePermissions:
+            enabled: true
+          livenessProbe:
+            initialDelaySeconds: 300
+          readinessProbe:
+            initialDelaySeconds: 300

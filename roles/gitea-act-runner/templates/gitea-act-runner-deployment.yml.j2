@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea-act-runner
+  namespace: gitea-act-runner
+  labels:
+    app: gitea-act-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea-act-runner
+  template:
+    metadata:
+      labels:
+        app: gitea-act-runner
+    spec:
+      containers:
+        - name: gitea-act-runner
+          image: gitea/act_runner:latest-dind-rootless
+          workingDir: /data
+          command: ["/usr/bin/supervisord", "-c", "/opt/gitea-act-runner/supervisord.conf"]
+          env:
+            - name: DOCKER_HOST
+              value: "tcp://192.168.3.10:2375"
+            - name: GITEA_INSTANCE_URL
+              value: "https://git.{{ domain }}"
+            - name: GITEA_RUNNER_REGISTRATION_TOKEN
+              value: "{{ token.user_input }}"
+            - name: GITEA_RUNNER_LABELS
+              value: "gitea-act-runner-latest:docker://imasuggo5/gitea-act-runner:latest"
+          volumeMounts:
+            - name: gitea-act-runner-pvc
+              mountPath: /data
+            - name: gitea-act-runner-conf
+              mountPath: /opt/gitea-act-runner
+      volumes:
+        - name: gitea-act-runner-pvc
+          persistentVolumeClaim:
+            claimName: gitea-act-runner
+        - name: gitea-act-runner-conf
+          configMap:
+            name: gitea-act-runner

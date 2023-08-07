@@ -1,0 +1,15 @@
+[common]
+server_addr = proxy-server.{{ domain }}
+server_port = 7000
+authentication_method = token
+token = {{ lookup("community.general.passwordstore", "proxy-server") }}
+
+[http]
+type = http
+local_port = 80
+custom_domains = *.{{ domain }}
+
+[https]
+type = https
+local_port = 443
+custom_domains = *.{{ domain }}

@@ -1,0 +1,25 @@
+---
+# Setup Kubernetes
+- hosts: microk8s
+
+  roles:
+    - microk8s
+
+# Setup servers:
+- hosts: master
+
+  roles:
+    - docker
+    - nfs-server
+
+# Setup Kubernetes infrastructures
+- hosts: master
+
+  vars:
+    domain: imasuggo5.com
+
+  roles:
+    - network
+    - nfs-driver
+    - kube-prometheus-stack
+    - dashboard

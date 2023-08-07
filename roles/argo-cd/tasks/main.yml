@@ -1,0 +1,34 @@
+---
+- name: Add chart repo for Argo CD
+  kubernetes.core.helm_repository:
+    name: bitnami
+    repo_url: https://charts.bitnami.com/bitnami
+
+- name: Install Argo CD
+  kubernetes.core.helm:
+    name: argo-cd
+    chart_ref: bitnami/argo-cd
+    release_namespace: argo-cd
+    create_namespace: true
+    values:
+      config:
+        secret:
+          argocdServerAdminPassword: '{{ lookup("community.general.passwordstore", "home/argo-cd create=true") }}'
+      server:
+        insecure: true
+        ingress:
+          enabled: true
+          hostname: "argo-cd.{{ domain }}"
+          annotations:
+            cert-manager.io/cluster-issuer: lets-encrypt
+          tls: true
+
+- name: Download Argo CD Image Updater manifests
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+    dest: /tmp/argo-cd-image-updater-install.yaml
+
+- name: Install Argo CD Image Updater
+  kubernetes.core.k8s:
+    src: /tmp/argo-cd-image-updater-install.yaml
+    namespace: argo-cd

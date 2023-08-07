@@ -1,0 +1,25 @@
+---
+- name: Add chart repo for PostgreSQL
+  kubernetes.core.helm_repository:
+    name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+- name: Install PostgreSQL
+  kubernetes.core.helm:
+    name: postgresql
+    chart_ref: bitnami/postgresql
+    create_namespace: yes
+    namespace: postgresql
+    update_repo_cache: yes
+    values:
+      global:
+        postgresql:
+          auth:
+            postgresPassword: '{{ lookup("community.general.passwordstore", "home/postgresql create=true") }}'
+      primary:
+        volumePermissions:
+          enabled: true
+        livenessProbe:
+          initialDelaySeconds: 300
+        readinessProbe:
+          initialDelaySeconds: 300

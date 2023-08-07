@@ -1,0 +1,8 @@
+---
+- name: Enable addons
+  ansible.builtin.shell:
+    cmd: microk8s enable dashboard
+
+- name: Create ingress
+  kubernetes.core.k8s:
+    template: "dashboard.yml.j2"

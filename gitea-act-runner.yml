@@ -1,0 +1,8 @@
+---
+- hosts: master
+
+  vars:
+    domain: imasuggo5.com
+
+  roles:
+    - gitea-act-runner

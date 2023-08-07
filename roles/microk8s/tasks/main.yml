@@ -1,0 +1,9 @@
+---
+- name: Install microk8s
+  community.general.snap:
+    name: microk8s
+    classic: yes
+    channel: 1.27
+
+- ansible.builtin.include: master.yml
+  when: inventory_hostname == "master"

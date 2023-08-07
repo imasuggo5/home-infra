@@ -1,0 +1,14 @@
+---
+- name: Get token from user
+  ansible.builtin.pause:
+    prompt: Input the token for gitea action.
+  register: token
+
+- name: Create Gitea act runner
+  kubernetes.core.k8s:
+    template: "{{ item }}"
+  loop:
+    - "gitea-act-runner-namespace.yml.j2"
+    - "gitea-act-runner-conf.yml.j2"
+    - "gitea-act-runner-pvc.yml.j2"
+    - "gitea-act-runner-deployment.yml.j2"

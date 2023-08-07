@@ -1,0 +1,6 @@
+---
+- name: Setup infrastructures
+  ansible.builtin.import_playbook: infrastructures.yml
+
+- name: Setup applications
+  ansible.builtin.import_playbook: applications.yml

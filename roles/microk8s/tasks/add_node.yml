@@ -1,0 +1,9 @@
+- name: Get add node command
+  ansible.builtin.shell:
+    cmd: microk8s add-node | grep 'microk8s join.*--worker'
+  register: result
+
+- name: Add node
+  delegate_to: "{{ worker }}"
+  ansible.builtin.shell:
+    cmd: "{{ result.stdout }}"

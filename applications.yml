@@ -1,0 +1,12 @@
+# Setup Kubernetes applications
+---
+- hosts: master
+
+  vars:
+    domain: imasuggo5.com
+
+  roles:
+    - gitea
+    - argo-cd
+    - airflow
+    - postgresql

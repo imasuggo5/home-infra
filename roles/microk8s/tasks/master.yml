@@ -1,0 +1,31 @@
+---
+- name: Create kubeconfig
+  ansible.builtin.shell:
+    cmd: microk8s config > ~/.kube/config
+
+- name: Enable addons
+  ansible.builtin.shell:
+    cmd: microk8s enable helm3
+
+- name: Add aliases
+  ansible.builtin.shell:
+    cmd: snap alias {{ item.cmd }} {{ item.alias }}
+  loop:
+    - { cmd: microk8s.helm3, alias: helm }
+    - { cmd: microk8s.kubectl, alias: kubectl }
+
+- name: Install requirements
+  block:
+    - name: Install pip
+      ansible.builtin.apt:
+        name: python3-pip
+        update_cache: yes
+    - name: Install openshift python library
+      ansible.builtin.pip:
+        name: openshift
+
+- name: Add nodes
+  ansible.builtin.include: add_node.yml
+  vars:
+    worker: "{{ item }}"
+  loop: "{{ groups['workers'] }}"

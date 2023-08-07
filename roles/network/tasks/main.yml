@@ -1,0 +1,44 @@
+---
+- name: Enable addons
+  ansible.builtin.shell:
+    cmd: microk8s enable dns ingress cert-manager
+
+- name: Locate cluster issuer manifest file
+  ansible.builtin.copy:
+    src: cluster-issuer.yml
+    dest: /tmp/cluster-issuer.yml
+
+- name: Create cluster issuer
+  kubernetes.core.k8s:
+    src: /tmp/cluster-issuer.yml
+
+- name: Enable to use frpc
+  ansible.builtin.include_role:
+    name: frpc
+
+- name: Locate nginx ingress tcp config manifest file
+  ansible.builtin.copy:
+    src: nginx-ingress-tcp-microk8s-conf.yml
+    dest: /tmp/nginx-ingress-tcp-microk8s-conf.yml
+
+- name: Create nginx ingress tcp config
+  kubernetes.core.k8s:
+    src: /tmp/nginx-ingress-tcp-microk8s-conf.yml
+
+- name: Patch ingress controller
+  kubernetes.core.k8s:
+    state: patched
+    kind: DaemonSet
+    name: nginx-ingress-microk8s-controller
+    namespace: ingress
+    definition:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: nginx-ingress-microk8s
+                ports:
+                  - name: postgresql
+                    containerPort: 5432
+                    hostPort: 5432
+                    protocol: TCP
