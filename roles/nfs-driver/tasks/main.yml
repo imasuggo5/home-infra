@@ -12,11 +12,6 @@
     values:
       kubeletDir: /var/snap/microk8s/common/var/lib/kubelet
 
-- name: Locate a manifest file for a storage class for NFS server
-  ansible.builtin.copy:
-    src: sc-nfs.yml
-    dest: /tmp/sc-nfs.yml
-
 - name: Create a storage class for NFS server
   kubernetes.core.k8s:
-    src: /tmp/sc-nfs.yml
+    template: sc-nfs.yml.j2

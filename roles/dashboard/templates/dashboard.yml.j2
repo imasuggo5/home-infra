@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
 spec:
   rules:
-    - host: "dashboard.192.168.3.10.nip.io"
+    - host: "dashboard.{{ hostvars['master'].ansible_host }}.nip.io"
       http:
         paths:
           - path: /

@@ -1,9 +1,5 @@
 ### Notes
 
-- Fix the gitea app.ini in persistance volume for your custom settings and restart the pod.
-
-- Register the token to the gitea act runner and activate the runner.
-
 - Fix probe delay seconds to avoid error installing PostgreSQL by bitnami helm chart.
 
   https://github.com/bitnami/charts/issues/3925
@@ -21,6 +17,8 @@
 
 - [Gitea Actions](https://docs.gitea.com/next/usage/actions/quickstart)
 
+- [MicroK8s Ingress](https://microk8s.io/docs/addon-ingress)
+
 
 ### TODO
 
@@ -32,13 +30,4 @@
 
 - [ ] Specify version.
 
-- [ ] Enable to use tcp/udp proxy by ingress controller.
-
-    https://microk8s.io/docs/addon-ingress
-    https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
-
 - [ ] Use variables.
-
-- [ ] Create CI/CD demo.
-
-- [ ] Auto set up Gitea and Gitea act runner.

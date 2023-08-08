@@ -13,8 +13,8 @@
     mode: "777"
 
 - name: Locate exports file
-  ansible.builtin.copy:
-    src: exports
+  ansible.builtin.template:
+    src: exports.j2
     dest: /etc/exports
 
 - name: Restart nfs-kernel-server service

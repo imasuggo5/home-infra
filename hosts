@@ -1,0 +1,11 @@
+---
+all:
+  children:
+    microk8s:
+      hosts:
+        master:
+      children:
+        workers:
+          hosts:
+            worker-1:
+            worker-2:

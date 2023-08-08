@@ -1,0 +1,29 @@
+---
+- name: Add chart repo for SonarQube
+  kubernetes.core.helm_repository:
+    name: sonarqube
+    url: https://SonarSource.github.io/helm-chart-sonarqube
+
+- name: Install SonarQube
+  kubernetes.core.helm:
+    name: sonarqube
+    chart_ref: sonarqube/sonarqube
+    create_namespace: yes
+    namespace: sonarqube
+    wait: false
+    update_repo_cache: yes
+    values:
+      account:
+        adminPassword: '{{ lookup("community.general.passwordstore", "home/sonarqube create=true") }}'
+      persistence:
+        enabled: true
+      ingress:
+        enabled: true
+        hosts:
+          - name: "sonarqube.{{ domain }}"
+        annotations:
+          cert-manager.io/cluster-issuer: lets-encrypt
+        tls:
+          - secretName: sonarqube.{{ domain }}-tls
+            hosts:
+              - "sonarqube.{{ domain }}"

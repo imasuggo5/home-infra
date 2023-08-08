@@ -15,9 +15,6 @@
 # Setup Kubernetes infrastructures
 - hosts: master
 
-  vars:
-    domain: imasuggo5.com
-
   roles:
     - network
     - nfs-driver
