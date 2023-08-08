@@ -1,0 +1,7 @@
+---
+- name: Enable frpc service
+  ansible.builtin.systemd:
+    name: frpc
+    state: restarted
+    enabled: true
+    daemon-reload: true

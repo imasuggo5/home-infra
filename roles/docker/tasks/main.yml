@@ -10,6 +10,8 @@
   ansible.builtin.shell:
     cmd: sh
     stdin: "{{ script.content }}"
+  notify:
+    - Reload docker service
 
 - name: Enable to access docker with tcp
   community.general.ini_file:
@@ -18,10 +20,3 @@
     option: ExecStart
     value: "/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://{{ hostvars['master'].ansible_host }}:2375"
     backup: true
-
-- name: Reload docker service
-  ansible.builtin.systemd:
-    name: docker
-    state: restarted
-    enabled: true
-    daemon-reload: true

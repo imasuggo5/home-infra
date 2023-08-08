@@ -3,6 +3,8 @@
   ansible.builtin.apt:
     name: nfs-kernel-server
     update_cache: yes
+  notify:
+    - Restart nfs-kernel-server service
 
 - name: Create a directory for NFS server
   ansible.builtin.file:
@@ -16,8 +18,5 @@
   ansible.builtin.template:
     src: exports.j2
     dest: /etc/exports
-
-- name: Restart nfs-kernel-server service
-  ansible.builtin.systemd:
-    name: nfs-kernel-server
-    state: restarted
+  notify:
+    - Restart nfs-kernel-server service

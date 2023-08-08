@@ -7,6 +7,8 @@
     extra_opts:
       - --transform
       - s,^[^/]+,frp,x
+  notify:
+    - Enable frpc service
 
 - name: Create frpc config file
   ansible.builtin.template:
@@ -35,10 +37,3 @@
         src: /opt/frp/systemd/frpc.service,
         dest: /etc/systemd/system/frpc.service,
       }
-
-- name: Enable frpc service
-  ansible.builtin.systemd:
-    name: frpc
-    state: restarted
-    enabled: true
-    daemon-reload: true

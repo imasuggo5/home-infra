@@ -6,10 +6,6 @@
 - name: Create cluster issuer
   kubernetes.core.k8s:
     template: cluster-issuer.yml.j2
-
-- name: Enable to use frpc
-  ansible.builtin.include_role:
-    name: frpc
 # TODO
 # - name: Locate nginx ingress tcp config manifest file
 #   ansible.builtin.copy:

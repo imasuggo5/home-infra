@@ -3,7 +3,7 @@
 - hosts: master
 
   roles:
-    - network
+    - cert-manager
     - nfs-driver
     - kube-prometheus-stack
     - dashboard

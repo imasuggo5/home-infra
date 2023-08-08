@@ -3,5 +3,6 @@
 - hosts: master
 
   roles:
+    - frpc
     - docker
     - nfs-server
