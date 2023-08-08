@@ -7,6 +7,7 @@
 - Add no_root_squash to avoid permission error of nfs storage.
 
   https://stackoverflow.com/questions/50854701/kubernetes-permission-denied-for-mounted-nfs-volume
+  https://manpages.debian.org/unstable/manpages-ja/exports.5.ja.html
 
 
 ### Reference
@@ -19,14 +20,11 @@
 
 - [MicroK8s Ingress](https://microk8s.io/docs/addon-ingress)
 
+- [Ansible Best Practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html)
 
 ### TODO
 
 - [ ] Create DNS server.
-
-- [ ] Optimize NFS server.
-    
-    https://manpages.debian.org/unstable/manpages-ja/exports.5.ja.html
 
 - [ ] Specify version.
 

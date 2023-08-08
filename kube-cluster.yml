@@ -1,0 +1,6 @@
+---
+# Setup Kubernetes Cluster
+- hosts: microk8s
+
+  roles:
+    - microk8s

@@ -1,0 +1,7 @@
+---
+# Setup master:
+- hosts: master
+
+  roles:
+    - docker
+    - nfs-server

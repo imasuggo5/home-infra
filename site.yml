@@ -1,6 +1,12 @@
 ---
-- name: Setup infrastructures
-  ansible.builtin.import_playbook: infrastructures.yml
+- name: Setup Kubernetes cluster
+  ansible.builtin.import_playbook: kube-cluster.yml
 
-- name: Setup applications
-  ansible.builtin.import_playbook: applications.yml
+- name: Setup master
+  ansible.builtin.import_playbook: master.yml
+
+- name: Setup Kubernetes infrastructures
+  ansible.builtin.import_playbook: kube-infras.yml
+
+- name: Setup Kubernetes applications
+  ansible.builtin.import_playbook: kube-apps.yml
