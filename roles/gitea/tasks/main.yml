@@ -25,7 +25,7 @@
       gitea:
         admin:
           username: gitea_admin
-          password: '{{ lookup("community.general.passwordstore", "home/gitea create=true") }}'
+          password: "{{ gitea_password }}"
         config:
           service:
             DISABLE_REGISTRATION: true

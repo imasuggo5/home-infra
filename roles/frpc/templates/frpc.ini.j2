@@ -2,7 +2,7 @@
 server_addr = proxy-server.{{ domain }}
 server_port = 7000
 authentication_method = token
-token = {{ lookup("community.general.passwordstore", "proxy-server") }}
+token = {{ frp_password }}
 
 [http]
 type = http

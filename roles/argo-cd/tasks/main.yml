@@ -13,7 +13,7 @@
     values:
       config:
         secret:
-          argocdServerAdminPassword: '{{ lookup("community.general.passwordstore", "home/argo-cd create=true") }}'
+          argocdServerAdminPassword: '{{ argo_cd_password }}'
       server:
         insecure: true
         ingress:

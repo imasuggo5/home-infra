@@ -27,5 +27,3 @@
 - [ ] Create DNS server.
 
 - [ ] Specify version.
-
-- [ ] Use variables.

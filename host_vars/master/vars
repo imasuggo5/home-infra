@@ -1,6 +1,13 @@
 ---
-ansible_host: "{{ hostvars['master'].vault_ansible_host }}"
+ansible_host: "{{ vault_ansible_host }}"
 ansible_become: yes
-ansible_user: "{{ hostvars['master'].vault_ansible_user }}"
-ansible_password: "{{ hostvars['master'].vault_ansible_password }}"
-ansible_become_password: "{{ hostvars['master'].vault_ansible_become_password }}"
+ansible_user: "{{ vault_ansible_user }}"
+ansible_password: "{{ vault_ansible_password }}"
+ansible_become_password: "{{ vault_ansible_become_password }}"
+
+gitea_password: "{{ vault_gitea_password }}"
+argo_cd_password: "{{ vault_argo_cd_password }}"
+airflow_password: "{{ vault_airflow_password }}"
+frp_password: "{{ vault_frp_password }}"
+grafana_password: "{{ vault_grafana_password }}"
+sonarqube_password: "{{ vault_sonarqube_password }}"

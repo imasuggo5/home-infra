@@ -14,7 +14,7 @@
     update_repo_cache: yes
     values:
       account:
-        adminPassword: '{{ lookup("community.general.passwordstore", "home/sonarqube create=true") }}'
+        adminPassword: '{{ sonarqube_password }}'
       persistence:
         enabled: true
       ingress:

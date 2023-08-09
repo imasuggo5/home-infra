@@ -14,7 +14,7 @@
     values:
       auth:
         username: admin
-        password: '{{ lookup("community.general.passwordstore", "home/airflow create=true") }}'
+        password: '{{ airflow_password }}'
       ingress:
         enabled: true
         hostname: "airflow.{{ domain }}"

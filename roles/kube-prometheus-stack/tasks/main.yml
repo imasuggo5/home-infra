@@ -32,7 +32,7 @@
         #       hosts:
         #         - "prometheus.{{ domain }}"
       grafana:
-        adminPassword: '{{ lookup("community.general.passwordstore", "home/kube-prometheus-stack create=true") }}'
+        adminPassword: '{{ grafana_password }}'
         ingress:
           enabled: true
           annotations:
