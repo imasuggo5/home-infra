@@ -7,13 +7,13 @@
     extra_opts:
       - --transform
       - s,^[^/]+,frp,x
-  notify:
-    - Enable frpc service
 
 - name: Create frpc config file
   ansible.builtin.template:
     src: frpc.ini.j2
     dest: /opt/frp/frpc.ini
+  notify:
+    - Enable frpc service
 
 - name: Create frpc service file
   ansible.builtin.copy:
