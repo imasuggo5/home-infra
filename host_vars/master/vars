@@ -1,0 +1,6 @@
+---
+ansible_host: "{{ hostvars['master'].vault_ansible_host }}"
+ansible_become: yes
+ansible_user: "{{ hostvars['master'].vault_ansible_user }}"
+ansible_password: "{{ hostvars['master'].vault_ansible_password }}"
+ansible_become_password: "{{ hostvars['master'].vault_ansible_become_password }}"

@@ -1,0 +1,4 @@
+---
+domain: imasuggo5.com
+email: suguru_imanaga@anothervisions.net
+local_network: "{{ vault_local_network }}"
