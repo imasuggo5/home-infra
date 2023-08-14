@@ -7,3 +7,4 @@
     - nfs-driver
     - kube-prometheus-stack
     - dashboard
+    - sealed-secrets
