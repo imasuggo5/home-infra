@@ -23,14 +23,10 @@
                 resources:
                   requests:
                     storage: "1Gi"
-        # ingress:
-        #   enabled: true
-        #   annotations:
-        #     cert-manager.io/cluster-issuer: lets-encrypt
-        #   tls:
-        #     - secretName: prometheus-ingress-tls
-        #       hosts:
-        #         - "prometheus.{{ domain }}"
+        ingress:
+          enabled: true
+          hosts:
+            - "prometheus.{{ hostvars['master'].ansible_host }}.nip.io"
       grafana:
         adminPassword: '{{ grafana_password }}'
         ingress:
