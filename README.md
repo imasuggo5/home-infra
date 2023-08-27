@@ -22,6 +22,8 @@
 
 - [Ansible Best Practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html)
 
+- [Fluentd](https://docs.fluentd.org/deployment/high-availability)
+
 ### TODO
 
 - [ ] Create DNS server.

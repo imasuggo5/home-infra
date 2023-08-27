@@ -8,3 +8,4 @@
     - kube-prometheus-stack
     - dashboard
     - sealed-secrets
+    - fluentd
