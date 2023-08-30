@@ -9,3 +9,4 @@
     - dashboard
     - sealed-secrets
     - fluentd
+    - loki
