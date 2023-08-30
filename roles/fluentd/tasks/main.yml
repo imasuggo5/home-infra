@@ -22,3 +22,5 @@
     values:
       aggregator:
         configMap: fluentd
+      plugins:
+        - fluent-plugin-grafana-loki
