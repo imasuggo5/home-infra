@@ -9,9 +9,7 @@ data:
     <match **>
       @type loki
       url "http://loki.loki.svc.cluster.local:3100"
-      <label>
-        container $.kubernetes.container
-      </label>
+      extra_labels {"env":"dev"}
     </match>
 
     <source>
