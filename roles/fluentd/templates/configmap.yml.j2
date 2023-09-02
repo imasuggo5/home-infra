@@ -7,10 +7,6 @@ metadata:
 data:
   fluentd.conf: |
     <match **>
-      @type stdout
-    </match>
-
-    <match **>
       @type loki
       url "http://loki.loki.svc.cluster.local:3100"
       <label>
