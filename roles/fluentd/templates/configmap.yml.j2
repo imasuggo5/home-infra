@@ -10,7 +10,7 @@ data:
       @type stdout
     </match>
 
-    <match debug.**>
+    <match **>
       @type loki
       url "http://loki.loki.svc.cluster.local:3100"
       flush_interval 10s
