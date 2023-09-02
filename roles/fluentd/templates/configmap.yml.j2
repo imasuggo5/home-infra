@@ -6,10 +6,16 @@ metadata:
   namespace: fluentd
 data:
   fluentd.conf: |
-    <match **>
-      @type loki
-      url "http://loki.loki.svc.cluster.local:3100"
-      extra_labels {"env":"dev"}
+    <match debug.**>
+      @type copy
+      <store>
+        @type loki
+        url "http://loki.loki.svc.cluster.local:3100"
+        extra_labels {"env":"dev"}
+      </store>
+      <store>
+        @type stdout
+      </store>
     </match>
 
     <source>
